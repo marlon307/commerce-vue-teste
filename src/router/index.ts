@@ -17,12 +17,18 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      component: () => import("../views/LoginView.vue")
+      component: () => import("../views/LoginView.vue"),
+      meta: {
+        requiresAuth: false
+      },
     },
     {
       path: "/register",
       name: "register",
-      component: () => import("../views/RegisterView.vue")
+      component: () => import("../views/RegisterView.vue"),
+      meta: {
+        requiresAuth: false
+      },
     },
     {
       path: "/create-product",
@@ -40,11 +46,11 @@ const router = createRouter({
   ]
 });
 
-const authenticate = true;
-router.beforeEach((to, from, next) => {
-  if (to.name === 'Create Product' && !authenticate) next({ name: 'login' })
-  if (to.name === 'register' && authenticate) next({ name: 'Create Product' })
-  if (to.name === 'login' && authenticate) next({ name: 'Create Product' })
+router.beforeEach((to, _from, next) => {
+  const checkLogged = localStorage.getItem('isLogged');
+  if (to.name === 'Create Product' && !checkLogged) next({ name: 'login' })
+  if (to.name === 'register' && checkLogged) next({ name: 'Create Product' })
+  if (to.name === 'login' && checkLogged) next({ name: 'Create Product' })
   else next()
 })
 

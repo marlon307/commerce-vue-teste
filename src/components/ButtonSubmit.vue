@@ -1,16 +1,24 @@
 <script setup lang="ts">
+import router from '@/router';
+import { isLogged } from '../stores/isLogged';
+
 const props = defineProps({
   title: {
     type: String,
     default: "Button",
   },
 });
+
+function clickLogin() {
+  isLogged().singIn();
+  router.push('/create-product');
+}
 </script>
 
 <template>
   <button
     class="group ml-auto mt-4 flex w-max cursor-pointer items-center justify-center rounded-lg bg-black px-4 py-2 text-sm font-medium text-white hover:bg-black/80"
-    type="submit" aria-label="Salvar" data-loading="false" formmethod="POST">
+    type="submit" aria-label="Salvar" data-loading="false" formmethod="POST" @click="clickLogin">
     <span class="pointer-events-none absolute group-data-[loading=false]:opacity-0"><svg class="h-4 w-4 animate-spin"
         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
