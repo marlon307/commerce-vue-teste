@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,30 +7,36 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView
+      component: () => import("../views/HomeView.vue")
     },
     {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/AboutView.vue")
     },
     {
       path: "/login",
       name: "login",
-      component: () => import("../views/LoginView.vue")
+      component: () => import("../views/LoginView.vue"),
+      meta: {
+        requiresAuth: false
+      },
     },
     {
       path: "/register",
       name: "register",
-      component: () => import("../views/RegisterView.vue")
+      component: () => import("../views/RegisterView.vue"),
+      meta: {
+        requiresAuth: false
+      },
     },
     {
       path: "/create-product",
       name: "Create Product",
-      component: () => import("../views/CreateProductView.vue")
+      component: () => import("../views/CreateProductView.vue"),
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: "/product/:id",
@@ -39,5 +45,13 @@ const router = createRouter({
     }
   ]
 });
+
+router.beforeEach((to, _from, next) => {
+  const checkLogged = localStorage.getItem('isLogged');
+  if (to.name === 'Create Product' && !checkLogged) next({ name: 'login' })
+  if (to.name === 'register' && checkLogged) next({ name: 'Create Product' })
+  if (to.name === 'login' && checkLogged) next({ name: 'Create Product' })
+  else next()
+})
 
 export default router;
