@@ -1,22 +1,23 @@
 <script setup lang="ts">
+
 interface IProduct {
-  id: number,
-  title: string,
-  description: string,
-  price: number,
-  discountPercentage: number,
-  rating: number,
-  stock: number,
-  brand: string,
-  category: string,
-  thumbnail: string
-  images: string[]
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
 }
 const props = defineProps<IProduct>();
 </script>
 
 <template>
-  <RouterLink class="w-80 rounded-xl p-8 border hover:border-blue-500 group" to="/product/$route.params.id">
+  <RouterLink class="w-80 rounded-xl p-8 border hover:border-blue-500 group" :to="'/product/' + props.id">
     <figure class="mx-auto block h-56 w-52">
       <img :src="props.thumbnail" alt="Image - product title" class="mx-auto group-hover:scale-105 transition-transform"
         width="200" height="250">

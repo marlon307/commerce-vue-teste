@@ -1,19 +1,72 @@
-<script setup lang="ts">
+<script lang="ts">
+interface IProduct {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+}
 
+type DataProduct = {
+  loading: boolean;
+  product: IProduct | null;
+  error: string | null;
+}
+
+export default {
+  data(): DataProduct {
+    return {
+      loading: false,
+      product: null,
+      error: null,
+    }
+  },
+  created() {
+    // watch the params of the route to fetch the data again
+
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        this.fetchData(this.$route.params.id as string)
+      },
+      // fetch the data when the view is created and the data is
+      // already being observed
+      { immediate: true }
+    )
+  },
+  methods: {
+    async fetchData(productId: string) {
+      this.error = this.product = null;
+      this.loading = true
+      const res = await fetch(`https://dummyjson.com/products/${productId}`)
+      const json = await res.json();
+      this.product = json;
+    },
+  },
+}
 </script>
 
 <template>
-  <section class="my-6 grid grid-cols-[60%,auto] gap-4 px-4">
-    <figure class="mx-auto flex h-[80vh] max-h-[700px] w-full items-center justify-center">
-      <img src="../assets/logo.svg" width="400" height="400" alt="Image - product">
+  <section class="my-6 grid grid-cols-[auto] md:grid-cols-[60%,auto] gap-4 px-4">
+    <figure class="mx-auto flex h-[60vh] md:h-[80vh] max-h-[700px] w-full items-center justify-center">
+      <img :src="$data.product?.thumbnail" width="400" height="400" alt="Image - product">
     </figure>
     <div class="space-y-6">
       <div class="space-y-4 border-b pb-6">
         <h1 class="text-5xl font-medium">
-          {{ $route.params.id }} Titulo do produto
+          {{ $data.product?.title }}
         </h1>
         <div class="w-max flex-none rounded-full bg-blue-700 px-4 py-1 text-center">
-          <span class="text-lg text-blue-50">R$ 30,00</span>
+          <span class="text-lg text-blue-50">{{ $data.product?.price.toLocaleString('pt-BR', {
+            currency: 'BRL', style:
+              'currency'
+          }) }}</span>
         </div>
       </div>
       <button type="button"
@@ -24,12 +77,7 @@
         <dt class="text-slate-700">
           Detalhes
         </dt>
-        <dl>Detalhes do produto</dl>
-        <dl>Detalhes do produto</dl>
-        <dl>Detalhes do produto</dl>
-        <dl>Detalhes do produto</dl>
-        <dl>Detalhes do produto</dl>
-        <dl>Detalhes do produto</dl>
+        <dl>{{ $data.product?.description }}</dl>
       </dl>
     </div>
   </section>
