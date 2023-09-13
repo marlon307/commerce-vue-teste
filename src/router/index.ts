@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,14 +7,11 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView
+      component: () => import("../views/HomeView.vue")
     },
     {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import("../views/AboutView.vue")
     },
     {
@@ -30,7 +27,10 @@ const router = createRouter({
     {
       path: "/create-product",
       name: "Create Product",
-      component: () => import("../views/CreateProductView.vue")
+      component: () => import("../views/CreateProductView.vue"),
+      meta: {
+        requiresAuth: true,
+      }
     },
     {
       path: "/product/:id",
@@ -39,5 +39,13 @@ const router = createRouter({
     }
   ]
 });
+
+const authenticate = true;
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Create Product' && !authenticate) next({ name: 'login' })
+  if (to.name === 'register' && authenticate) next({ name: 'Create Product' })
+  if (to.name === 'login' && authenticate) next({ name: 'Create Product' })
+  else next()
+})
 
 export default router;
