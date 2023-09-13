@@ -3,9 +3,9 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <header class="w-full">
+  <header class="w-full mb-6">
     <div class="mx-auto flex max-w-7xl justify-between p-4">
-      <RouterLink class="hover:underline" to="/">
+      <RouterLink class="hover:underline font-bold text-xl" to="/">
         Shop
       </RouterLink>
       <nav class="space-x-4">
