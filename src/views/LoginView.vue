@@ -10,7 +10,7 @@ import FieldInput from '@/components/FieldInput.vue';
       <FieldInput ariaLabel="E-mail" id="email" name="email" placeholder="email@email.com" required type="email" />
       <FieldInput ariaLabel="Senha" id="password" name="password" placeholder="Digite sua senha" required
         type="password" />
-      <ButtonSubmit tilte="Login" />
+      <ButtonSubmit title="Login" />
     </form>
   </section>
 </template>
