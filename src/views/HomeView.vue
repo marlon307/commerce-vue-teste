@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import CardProduct from "@/components/CardProduct.vue";
-// import ButtonSubmit from '@/components/ButtonSubmit.vue';
-// import FieldInput from '@/components/FieldInput.vue';
+
 </script>
 
 <template>

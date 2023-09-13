@@ -16,6 +16,11 @@ export const isLogged = defineStore("counter", () => {
     router.push('/');
   }
 
+  /*****************************/
+  // Reveja outro método para essa função
+  //        mounted
+  /*****************************/
+
   function mounted() {
     logged.value = !!localStorage.getItem("isLogged");
   }
