@@ -2,12 +2,11 @@
 import router from '@/router';
 import { isLogged } from '../stores/isLogged';
 
-const props = defineProps({
-  title: {
-    type: String,
-    default: "Button",
-  },
-});
+interface IButton {
+  title: string;
+}
+
+const props = defineProps<IButton>();
 
 function clickLogin() {
   isLogged().singIn();
