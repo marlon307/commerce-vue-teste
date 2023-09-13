@@ -5,13 +5,12 @@ import { RouterLink, RouterView } from "vue-router";
 <template>
   <header class="w-full">
     <div class="mx-auto flex max-w-7xl justify-between p-4">
-      <div>Shop</div>
+      <RouterLink class="hover:underline" to="/">
+        Shop
+      </RouterLink>
       <nav class="space-x-4">
-        <RouterLink class="hover:underline" to="/">
-          Home
-        </RouterLink>
         <RouterLink class="hover:underline" to="/about">
-          About
+          Sobre
         </RouterLink>
         <RouterLink class="hover:underline" to="/create-product">
           Criar Produto
