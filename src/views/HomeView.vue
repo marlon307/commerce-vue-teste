@@ -3,7 +3,7 @@ import CardProduct from "@/components/CardProduct.vue";
 </script>
 
 <template>
-  <h1>Produtos</h1>
+  <h1 class="my-8 text-2xl text-slate-700 text-center">Produtos</h1>
   <section class="flex flex-wrap justify-center gap-4">
     <CardProduct v-for="product in $data.products" :key="product.id" v-bind="product" />
   </section>
