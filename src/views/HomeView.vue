@@ -4,7 +4,7 @@ import CardProduct from "@/components/CardProduct.vue";
 
 <template>
   <h1 class="my-8 text-2xl text-slate-700 text-center">Produtos</h1>
-  <section class="flex flex-wrap justify-center gap-4">
+  <section class="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 px-4">
     <CardProduct v-for="product in $data.products" :key="product.id" v-bind="product" />
   </section>
 </template>
