@@ -1,18 +1,5 @@
 <script lang="ts">
-interface IProduct {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  discountPercentage: number;
-  rating: number;
-  stock: number;
-  brand: string;
-  category: string;
-  thumbnail: string;
-  images: string[];
-}
-
+import { type IProduct } from "../@types/product";
 type DataProduct = {
   loading: boolean;
   product: IProduct | null;
