@@ -10,20 +10,7 @@ import CardProduct from "@/components/CardProduct.vue";
 </template>
 
 <script lang="ts">
-// https://dummyjson.com/docs/products
-interface IProduct {
-  id: number,
-  title: string,
-  description: string,
-  price: number,
-  discountPercentage: number,
-  rating: number,
-  stock: number,
-  brand: string,
-  category: string,
-  thumbnail: string
-  images: string[]
-}
+import { type IProduct } from "../@types/product";
 
 type DataProduct = {
   loading: boolean;
@@ -55,6 +42,8 @@ export default {
     async fetchData() {
       this.error = this.products = null;
       this.loading = true
+      // https://dummyjson.com/docs/products
+
       const res = await fetch('https://dummyjson.com/products?limit=10')
       const json = await res.json();
       this.products = json.products;
