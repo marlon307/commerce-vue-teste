@@ -7,8 +7,7 @@ import useFetch from '@/utils/useFetch';
 
 async function onSubmitLogin(e: Event) {
   try {
-    const formData = new FormData(e.target as HTMLFormElement);
-    const res = await useFetch.post('/auth/login', formData);
+    const res = await useFetch.post('/auth/login', new FormData(e.target as HTMLFormElement));
     if (res.status === 200) {
       localStorage.setItem('token', res.data.access_token);
       isLogged().singIn();
