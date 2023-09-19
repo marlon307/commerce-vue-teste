@@ -47,7 +47,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _from, next) => {
-  const checkLogged = localStorage.getItem('isLogged');
+  const checkLogged = localStorage.getItem('token');
   if (to.name === 'Create Product' && !checkLogged) next({ name: 'login' })
   if (to.name === 'register' && checkLogged) next({ name: 'Create Product' })
   if (to.name === 'login' && checkLogged) next({ name: 'Create Product' })

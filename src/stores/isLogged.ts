@@ -7,12 +7,11 @@ export const isLogged = defineStore("counter", () => {
 
   function singIn() {
     logged.value = true;
-    localStorage.setItem("isLogged", "true");
   }
 
   function singOut() {
     logged.value = false;
-    localStorage.removeItem("isLogged");
+    localStorage.removeItem('token');
     router.push('/');
   }
 
@@ -22,7 +21,7 @@ export const isLogged = defineStore("counter", () => {
   /*****************************/
 
   function mounted() {
-    logged.value = !!localStorage.getItem("isLogged");
+    logged.value = !!localStorage.getItem("token");
   }
 
   return { mounted, logged, singIn, singOut };
