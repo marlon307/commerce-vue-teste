@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import ButtonSubmit from '@/components/ButtonSubmit.vue';
 import FieldInput from '@/components/FieldInput.vue';
-async function onSubmitLogin(e: FormDataEvent) {
+import router from '@/router';
+import { isLogged } from '@/stores/isLogged';
+import useFetch from '@/utils/useFetch';
+
+async function onSubmitLogin(e: Event) {
   try {
     const formData = new FormData(e.target as HTMLFormElement);
-    const res = await fetch('http://127.0.0.1:8000/api/user/login', {
-      headers: {
-        'accept': 'application/json'
-      },
-      method: 'POST',
-      body: formData
-    });
-    const json = await res.json();
-    console.log(json);
+    const res = await useFetch.post('/auth/login', formData);
+    if (res.status === 200) {
+      localStorage.setItem('token', res.data.access_token);
+      isLogged().singIn();
+      router.push('/create-product');
+    }
   } catch (error) {
     console.log(error);
   }

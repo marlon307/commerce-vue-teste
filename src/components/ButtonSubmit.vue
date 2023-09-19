@@ -1,17 +1,9 @@
 <script setup lang="ts">
-import router from '@/router';
-import { isLogged } from '../stores/isLogged';
-
 interface IButton {
   title: string;
 }
 
 const props = defineProps<IButton>();
-
-function clickLogin() {
-  isLogged().singIn();
-  router.push('/create-product');
-}
 </script>
 
 <template>
